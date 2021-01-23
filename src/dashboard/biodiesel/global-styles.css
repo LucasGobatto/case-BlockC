@@ -37,3 +37,26 @@ body {
     height: 93%;
     width: 96%;
 }
+
+@media screen and (max-width: 830px) {
+    body {
+        height: 180vh;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .blue-square {
+        height: 45%;
+    }
+
+    .white-square {
+        height: 55%;
+    }
+
+    .sub-section {
+        margin: 0.5em;
+        height: 100%;
+    }
+}

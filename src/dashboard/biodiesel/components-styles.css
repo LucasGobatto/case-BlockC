@@ -1,0 +1,266 @@
+.nav-button {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.nav-button div {
+    width: 3px;
+    height: 10px;
+    background-color: rgb(248, 248, 248);
+}
+
+.tab1 {
+    position: absolute;
+    left: 8px;
+    transform: rotate(54deg);
+}
+
+.tab2 {
+    position: absolute;
+    top:4.5px;
+    left: 8px;
+    transform: rotate(-54deg);
+}
+
+.head {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 0px 10px;
+    color:rgb(248, 248, 248);
+}
+
+.head h2 {
+    padding: 0 1rem;
+    font-size: 24px;
+}
+
+.head img {
+    position: absolute;
+    top: -14px;
+    right: 10px;
+    width: 111px;
+    height: 70px;
+}
+
+.divider {
+    width: 100%;
+    height: 2px;
+    margin-bottom: 20px;
+    background-color: rgb(248, 248, 248);
+}
+
+.sub-container, .company-selector {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.company-container {
+    width: 65%;
+}
+.rank-container {
+    width: 35%;
+}
+
+.company-selector {
+    align-items: center;
+    height: 10rem;
+    margin: 0.5rem;
+    padding: 2rem;
+    border-radius: 5rem;
+    background-color: rgb(0, 176, 240);
+}
+
+.company-selector h1 {
+    padding-right: 10px;
+    font-size: 24px;
+    color:rgb(248, 248, 248);
+}
+
+.selector {
+    display: grid;
+    column-gap: 2px;
+    grid-template-columns: 50% 50%;
+    row-gap: 2px;
+    margin: 0 1.5rem 0 0;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-radius: 4px;
+}
+
+.selector button {
+    display: block;
+    height: 30px;
+    padding: 4px;
+    border: none;
+    background-color:rgb(248, 248, 248);
+    font-weight: bold;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.selector button:hover {
+    background-color: rgb(47, 85, 151);
+    color:rgb(248, 248, 248);
+    font-weight: bold;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.info {
+    margin: 0.5rem;
+    width: 25%;
+    height: 40vh;
+    align-items: center;
+    text-align: center;
+    border: solid rgb(47, 85, 151) 1px;
+    border-radius: 2rem;
+}
+
+.info h2, .rank h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    padding: 0.5rem;
+    background-color: rgb(0, 176, 240);
+    color:rgb(248, 248, 248);
+    border-radius: 2rem 2rem 0 0;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.info h3, .info p {
+    height: 25px;
+    padding: 4px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rank {
+    margin: 0.5rem;
+    background-color: rgb(248, 248, 248);
+    border: solid rgb(47, 85, 151) 1px;
+    border-radius: 2rem;
+}
+
+.rank p {
+    font-size: 14px;
+    text-align: left;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-template-rows: repeat(5, 40px);
+    row-gap: 2px;
+    align-items: center;
+    padding-left: 2.5rem;
+}
+
+.grid-container p {
+    height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-left: 5px;
+}
+
+.rank div {
+    position: relative;
+}
+
+.rank img {
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    width: 28px;
+    height: 80%;
+}
+
+.CBIOs-increase {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;    
+    overflow: hidden;
+
+}
+
+.CBIOs-increase #title, .CBIOs-increase #value  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(189, 213, 255);
+    border:rgb(0, 176, 240) solid 1px;
+    border-radius: 5rem;
+    text-align: center;
+    font-size: 16px;
+}
+
+.CBIOs-increase #title {
+    width: 20rem;
+    height: 10vh;
+    padding: 1rem;
+}
+
+.CBIOs-increase #value {
+    position: relative;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    width: 25%;
+    height: 10vh;
+    font-weight: bold;
+}
+
+.green-arrow {
+    width: 40px;
+    height: 50px;
+    margin-left: 10px;
+}
+
+.CBIOs-increase #arrow {
+    position: relative;
+}
+
+.CBIOs-increase #arrow #first {
+    width: 5rem;
+    height: 2px;
+    background-color: rgb(0, 176, 240);
+}
+
+.CBIOs-increase #arrow #second {
+    position: absolute;
+    top: 0;
+    right: 1px;
+    width: 2px;
+    height: 10px;
+    background-color: rgb(0, 176, 240);
+    transform: rotate(45deg);
+}
+
+.CBIOs-increase #arrow #third {
+    position: absolute;
+    bottom: 0;
+    right: 1px;
+    width: 2px;
+    height: 10px;
+    background-color: rgb(0, 176, 240);
+    transform: rotate(-45deg);
+}

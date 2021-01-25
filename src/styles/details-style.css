@@ -11,8 +11,7 @@
 
 @media only screen and (max-width: 540px) {
     .details-container {
-        margin-top: 10vh;
-        padding-bottom: 10vh;
+        padding: 10vh 0;
     }
 }
 

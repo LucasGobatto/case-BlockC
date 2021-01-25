@@ -21,6 +21,11 @@ const App = () => {
 
     openSidebar();
 
+    const burger = document.querySelector('.burger');
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('tabbar-transition');
+    burger.classList.toggle('toggle');
+
 };
 
 const openSidebar = () => {

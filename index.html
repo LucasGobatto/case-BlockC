@@ -1,34 +1,198 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlockC - Comparativo Usinas NEEA Elegibilidade</title>
+    <title>BlockC - Análise de Indústrias de Biodiesel</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/styles/global-style.css">
+    <link rel="stylesheet" href="./src/styles/sidebar-style.css">
+    <link rel="stylesheet" href="./src/styles/details-style.css">
 </head>
 
 <body>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <main>
+        <img src="./src/assets/bg-icon.png" id="background">
+        <div class="nav">
+            <div class="burger">
+                <div class="tab1"></div>
+                <div class="tab2"></div>
+                <div class="tab3"></div>
+            </div>
+            <h2></h2>
+        </div>
+        <div class="sidebar">
+            <img src="./src/assets/light-icon.png" id="icon">
+            <div class="button-container">
+                <div class="primary-button" id="biodiesel">
+                    <h2>Biodiesel</h2>
+                </div>
+                <div class="primary-button" id="etanol">
+                    <h2>Etanol</h2>
+                </div>
 
-    <div class="container">
-        <img src="./src/assets/dark-icon.png" alt="logo">
-        <h1>Dashboards</h1>
-        <a href="src/dashboard/etanol/index.html">
-            <div class="nav-item">Etanol</div>
-        </a>
-        <a href="src/dashboard/biodiesel/index.html">
-            <div class="nav-item">Biodiesel</div>
-        </a>
-    </div>
-
-    <footer>
-        © Copyright / 2021 • BlockC • Todos os direitos reservados
-    </footer>
-
-    <script type="text/javascript" src="static-data.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+            </div>
+            <div class="option-button"></div>
+            <div class="selector">
+            </div>
+        </div>
+        <section class="details-container">
+            <div class="details">
+                <div class="company-name">
+                    <p class="company-name">Selecione um Produto ao Lado</p>
+                </div>
+                <div class="divider"></div>
+                <div class="title-etanol" id="etanol-hidratado">Hidratado</div>
+                <div class="info-container" id="info-etanol-hidratado">
+                    <div class="info">
+                        <h2>NEEA <br>(g CO2 eq/MJ)</br></h2>
+                        <div class="statistic-data" id="hidratado">
+                            <p>Usina</p>
+                            <h3 class="NEEA">0000</h3>
+                            <p>Média Setor</p>
+                            <p id="average-NEEA">0000</p>
+                            <p>Máxima Setor</p>
+                            <p id="max-NEEA">0000</p>
+                            <p>Mínima Setor</p>
+                            <p id="min-NEEA">0000</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h2>Produção (m³)</h2>
+                        <div class="statistic-data" id="hidratado">
+                            <p>Usina</p>
+                            <h3 class="production">0000</h3>
+                            <p>Média Setor</p>
+                            <p id="average-prod">0000</p>
+                            <p>Máxima Setor</p>
+                            <p id="max-prod">0000</p>
+                            <p>Mínima Setor</p>
+                            <p id="min-prod">0000</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h2>CBIOs</h2>
+                        <div class="statistic-data" id="hidratado">
+                            <p>Usina</p>
+                            <h3 class="CBIOs">0000</h3>
+                            <p>Média Setor</p>
+                            <p id="average-CBIOs">0000</p>
+                            <p>Máxima Setor</p>
+                            <p id="max-CBIOs">0000</p>
+                            <p>Mínima Setor</p>
+                            <p id="min-CBIOs">0000</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h2>Elegibilidade (%)</h2>
+                        <div class="statistic-data" id="hidratado">
+                            <p>Usina</p>
+                            <h3 class="eligibility">0000</h3>
+                            <p>Média Setor</p>
+                            <p id="average-eleg">0000</p>
+                            <p>Máxima Setor</p>
+                            <p id="max-eleg">0000</p>
+                            <p>Mínima Setor</p>
+                            <p id="min-eleg">0000</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="title-etanol" id="etanol-anidro">Anidro</div>
+                <div class="info-container" id="info-etanol-anidro">
+                    <div class="info">
+                        <h2>NEEA <br>(g CO2 eq/MJ)</br></h2>
+                        <div class="statistic-data" id="anidro">
+                            <p>Usina</p>
+                            <h3 class="NEEA">0000</h3>
+                            <p>Média Setor</p>
+                            <p id="average-NEEA">0000</p>
+                            <p>Máxima Setor</p>
+                            <p id="max-NEEA">0000</p>
+                            <p>Mínima Setor</p>
+                            <p id="min-NEEA">0000</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h2>Produção (m³)</h2>
+                        <div class="statistic-data" id="anidro">
+                            <p>Usina</p>
+                            <h3 class="production">0000</h3>
+                            <p>Média Setor</p>
+                            <p id="average-prod">0000</p>
+                            <p>Máxima Setor</p>
+                            <p id="max-prod">0000</p>
+                            <p>Mínima Setor</p>
+                            <p id="min-prod">0000</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h2>CBIOs</h2>
+                        <div class="statistic-data" id="anidro">
+                            <p>Usina</p>
+                            <h3 class="CBIOs">0000</h3>
+                            <p>Média Setor</p>
+                            <p id="average-CBIOs">0000</p>
+                            <p>Máxima Setor</p>
+                            <p id="max-CBIOs">0000</p>
+                            <p>Mínima Setor</p>
+                            <p id="min-CBIOs">0000</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider" id="divider-anidro"></div>
+                <div class="CBIOs-increase" id="overCBIOS-hidratado">
+                    <p id="label">Acréscimo de CBIOs, caso a usina atinja o NEEA Máxima do Setor</p>
+                    <div class="value-container">
+                        <img src="./src/assets/triangulo.png">
+                        <p name="overCBIOs" id="hidratado">0000</p>
+                        <p name="overCBIOs" id="anidro">0000</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="rank-container">
+                    <div class="rank" id="highest">
+                        <h2>TOP 5 NEEA</h2>
+                        <div class="grid-container" id="top">
+                            <p class="top-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="top-item" id="value">00.00</p>
+                            <p class="top-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="top-item" id="value">00.00</p>
+                            <p class="top-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="top-item" id="value">00.00</p>
+                            <p class="top-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="top-item" id="value">00.00</p>
+                            <p class="top-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="top-item" id="value">00.00</p>
+                        </div>
+                    </div>
+                    <div class="rank" id="lowest">
+                        <h2>BOTTOM 5 NEEA</h2>
+                        <div class="grid-container" id="bottom">
+                            <p class="bottom-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="bottom-item" id="value">00.00</p>
+                            <p class="bottom-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="bottom-item" id="value">00.00</p>
+                            <p class="bottom-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="bottom-item" id="value">00.00</p>
+                            <p class="bottom-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="bottom-item" id="value">00.00</p>
+                            <p class="bottom-item" id="name">Lorem ipsum dolor sit</p>
+                            <p class="bottom-item" id="value">00.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="./src/scripts/static-data.js"></script>
+    <script src="./src/scripts/set-rank.js"></script>
+    <script src="./src/scripts/biodiesel.js"></script>
+    <script src="./src/scripts/etanol.js"></script>
+    <script src="./src/scripts/clean-display.js"></script>
+    <script src="./src/scripts/app.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,41 @@
+:root {
+    --dark-blue: #2f5597;
+    --purple: #71326e;
+    --dark-purple: #3a0138;
+    --water-green: #01c5c3;
+    --white: #f8f8f8;
+    --black: #404040;
+    --light-gray: #A7A7A7;
+    --margin-components: 10px;
+    --radius: 10px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: block;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+main {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+main #background {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: none;
+}

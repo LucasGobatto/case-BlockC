@@ -1,0 +1,162 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(var(--purple), var(--dark-blue));
+    padding: 2rem;
+    z-index: 2;
+}
+
+.nav {
+    display: none;
+}
+
+@media only screen and (max-width: 540px) {
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0px;
+        height: 10vh;
+        width: 100%;
+        background-color: var(--dark-purple);
+        z-index: 3;
+        margin-bottom: 10vh;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 10vh;
+        left: 0;
+        width: 100%;
+        z-index: 4;
+        transform: translateX(-100%);
+        transition: transform 500ms ease-in;
+    }
+}
+
+.burger {
+    position: absolute;
+    top: 2.7vh;
+    left: 40px;
+    width: 30px;
+    height: 20px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.burger div {
+    background-color: var(--white);
+    height: 20%;
+    width: 100%;
+    border-radius: var(--radius);
+}
+
+.tab2 {
+    margin: 20% 0;
+}
+
+.toggle .tab1 {
+    transform: rotate(-45deg) translate(-6px, 7px);
+}
+.toggle .tab2 {
+    opacity: 0;
+}
+.toggle .tab3 {
+    transform: rotate(45deg) translate(-7px, -8px);
+}
+
+.nav h2 {
+    text-align: center;
+    font-weight: bold;
+    color: var(--white);
+    font-size: 24px;
+}
+
+.tabbar-transition {
+    transform: translateX(0);
+}
+
+.sidebar #icon {
+    width: 220px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: var(--margin-components);
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.primary-button {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin: var(--margin-components) 0;
+    border-radius: 10px;
+    height: 40px;
+    width: 40%;
+    background-color: var(--water-green);
+    text-align: center;
+}
+
+.primary-button h2 {
+    color: var(--white);
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+}
+
+.text-input {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    background-color: var(--white);
+    justify-content: center;
+    margin: var(--margin-components) 0;
+}
+
+.text-input input {
+    font-size: 11px;
+    height: 100%;
+    width: 100%;
+    background-color: var(--white);
+    border: none;
+    text-align: center;
+}
+.text-input img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    align-self: center;
+    margin: 0 10px;
+}
+
+.selector {
+    height: 100%;
+    width: 100%;
+    border-top: var(--white) solid 1px;
+    margin-top: var(--margin-components);
+    padding-top: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.selector button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--white);
+    font-size: 10px;
+    height: 48px;
+    width: 100%;
+    text-align: center;
+}

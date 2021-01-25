@@ -1,20 +1,23 @@
-const rankedList = getRank("biodiesel");
+const rankedListBiodiesel = getRank("biodiesel");
 
-const App = () => {
-    updateSelector();
-    getStatisticData();
-    updateRank();
-}
+const Biodiesel = () => {
+    updateSelectorBiodiesel();
+    getStatisticDataBiodiesel();
+    updateRankBiodiesel();
+};
 
-function updateSelector() {
+function updateSelectorBiodiesel() {
     const listOfNames = staticData.biodiesel.map((elem) => elem.Usina);
 
     const selector = document.querySelector(".selector");
     listOfNames.forEach((elem) => {
         const button = document.createElement("button");
+        const divider = document.createElement("div");
+        divider.classList.add("divider");
         button.innerHTML = elem;
         button.onclick = () => { updateCurrentCompanyData(elem) };
         selector.appendChild(button);
+        selector.appendChild(divider)
     });
 
     const updateCurrentCompanyData = (name) => {
@@ -27,21 +30,25 @@ function updateSelector() {
 
         staticData.biodiesel.forEach((elem) => {
             if (elem.Usina === name) {
-                NEEAComponent.innerHTML = elem.NEEA?.toFixed(2).toString() ?? "";
-                elegComponent.innerHTML = elem.Elegibilidade?.toString().concat("%") ?? "";
-                prodComponent.innerHTML = elem.Producao ?? "";
-                CBIOsComponent.innerHTML = elem.CBIOs ?? "";
-                overCBIOsComponent.innerHTML = elem.overCBIOs ?? "";
+                NEEAComponent.innerHTML = elem.NEEA?.toFixed(2).toString() ?? "--";
+                elegComponent.innerHTML = elem.Elegibilidade?.toString().concat("%") ?? "--";
+                prodComponent.innerHTML = elem.Producao ?? "--";
+                CBIOsComponent.innerHTML = elem.CBIOs ?? "--";
+                overCBIOsComponent.innerHTML = elem.overCBIOs ?? "--";
             }
         });
+        const burger = document.querySelector('.burger');
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('tabbar-transition');
+        burger.classList.toggle('toggle');
     }
-}
+};
 
-const getStatisticData = () => {
+const getStatisticDataBiodiesel = () => {
     const NEEA = () => {
         let average = 0;
         let count = 0;
-        rankedList.rank.forEach((valeu) => {
+        rankedListBiodiesel.rank.forEach((valeu) => {
             if (valeu) {
                 average += valeu;
                 count += 1;
@@ -51,8 +58,8 @@ const getStatisticData = () => {
         average = (average / count).toFixed(2);
 
         document.getElementById("average-NEEA").innerHTML = average;
-        document.getElementById("max-NEEA").innerHTML = Math.max(...rankedList.rank).toFixed(2);
-        document.getElementById("min-NEEA").innerHTML = Math.min(...rankedList.rank).toFixed(2);
+        document.getElementById("max-NEEA").innerHTML = Math.max(...rankedListBiodiesel.rank).toFixed(2);
+        document.getElementById("min-NEEA").innerHTML = Math.min(...rankedListBiodiesel.rank).toFixed(2);
     };
 
     const updateData = (name) => {
@@ -100,10 +107,10 @@ const getStatisticData = () => {
     updateData("eleg")
     updateData("prod")
     updateData("CBIOs")
-}
+};
 
 
-const updateRank = () => {
+const updateRankBiodiesel = () => {
     const topCompaniesNames = document.querySelectorAll("p.top-item#name");
     const topCompaniesValues = document.querySelectorAll("p.top-item#value");
 
@@ -112,7 +119,7 @@ const updateRank = () => {
     });
 
     topCompaniesValues.forEach((elem, i) => {
-        elem.innerHTML = rankedList.rank[i]?.toFixed(2);
+        elem.innerHTML = rankedListBiodiesel.rank[i]?.toFixed(2);
     });
 
     const bottomCompaniesNames = document.querySelectorAll("p.bottom-item#name");
@@ -123,8 +130,6 @@ const updateRank = () => {
     });
 
     bottomCompaniesValues.forEach((elem, i) => {
-        elem.innerHTML = rankedList.rank[rankedList.rank.length + (i - 5)]?.toFixed(2);
+        elem.innerHTML = rankedListBiodiesel.rank[rankedListBiodiesel.rank.length + (i - 5)]?.toFixed(2);
     });
 };
-
-App();

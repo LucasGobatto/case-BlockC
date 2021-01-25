@@ -1,81 +1,97 @@
-const rankedList = getRank("etanol");
-console.log(rankedList)
+const rankedListEtanol = getRank("etanol");
 
-const App = () => {
-    updateSelector();
-    getStatisticData();
-    updateRank();
+const Etanol = () => {
+    getStatisticDataEtanol();
+    updateRankEtanol();
+    updateSelectorEtanol();
 };
 
-const updateSelector = () => {
+const updateSelectorEtanol = () => {
     const listOfNames = staticData.etanol.map((elem) => elem.Usina);
 
     const selector = document.querySelector(".selector");
     listOfNames.forEach((elem) => {
         const button = document.createElement("button");
+        const divider = document.createElement("div");
+        divider.classList.add("divider");
         button.innerHTML = elem;
         button.onclick = () => { updateCurrentCompanyData(elem) };
         selector.appendChild(button);
+        selector.appendChild(divider)
     });
 
     const updateCurrentCompanyData = (name) => {
+        const divHidrat = document.querySelectorAll("div#hidratado.statistic-data")
+        const divAnidro = document.querySelectorAll("div#anidro.statistic-data");
+        document.querySelector(".company-name").innerHTML = name;
+
         const NEEAComponent = {
-            hidrat: document.querySelector("#NEEA-hidratado"),
-            anidro: document.querySelector("#NEEA-anidro")
+            hidrat: divHidrat[0].childNodes,
+            anidro: divAnidro[0].childNodes,
         };
-        const elegComponent = document.querySelector(".eleg");
         const prodComponent = {
-            hidrat: document.querySelector("#prod-hidratado"),
-            anidro: document.querySelector("#prod-anidro")
+            hidrat: divHidrat[1].childNodes,
+            anidro: divAnidro[1].childNodes,
         };
         const CBIOsComponent = {
-            hidrat: document.querySelector("#CBIOs-hidratado"),
-            anidro: document.querySelector("#CBIOs-anidro")
+            hidrat: divHidrat[2].childNodes,
+            anidro: divAnidro[2].childNodes,
         };
         const overCBIOsComponent = {
-            hidrat: document.querySelector("#overCBIOs-hidratado"),
-            anidro: document.querySelector("#overCBIOs-anidro")
+            hidrat: document.querySelector(".value-container").childNodes,
+            anidro: document.querySelector(".value-container").childNodes,
         };
-        document.querySelector(".company-name").innerHTML = name;
+
+        const elegComponent = document.querySelector(".eligibility");
 
         staticData.etanol.forEach((elem) => {
             if (elem.Usina === name) {
-                NEEAComponent.hidrat.innerHTML = elem.Hidratado.NEEA?.toFixed(2) ?? "";
-                NEEAComponent.anidro.innerHTML = elem.Anidro.NEEA?.toFixed(2) ?? "";
-                elegComponent.innerHTML = elem.Elegibilidade?.toString().concat("%") ?? "";
-                prodComponent.hidrat.innerHTML = elem.Hidratado.Producao?.toFixed(1) ?? "";
-                prodComponent.anidro.innerHTML = elem.Anidro.Producao?.toFixed(1) ?? "";
-                CBIOsComponent.hidrat.innerHTML = elem.Hidratado.CBIOs ?? "";
-                CBIOsComponent.anidro.innerHTML = elem.Anidro.CBIOs ?? "";
-                overCBIOsComponent.hidrat.innerHTML = elem.Hidratado.overCBIOs ?? "";
-                overCBIOsComponent.anidro.innerHTML = elem.Anidro.overCBIOs ?? "";
+                NEEAComponent.hidrat[3].innerHTML = elem.Hidratado.NEEA?.toFixed(2) ?? "--";
+                NEEAComponent.anidro[3].innerHTML = elem.Anidro.NEEA?.toFixed(2) ?? "--";
+                prodComponent.hidrat[3].innerHTML = elem.Hidratado.Producao?.toFixed(1) ?? "--";
+                prodComponent.anidro[3].innerHTML = elem.Anidro.Producao?.toFixed(1) ?? "--";
+                CBIOsComponent.hidrat[3].innerHTML = elem.Hidratado.CBIOs ?? "--";
+                CBIOsComponent.anidro[3].innerHTML = elem.Anidro.CBIOs ?? "--";
+                overCBIOsComponent.hidrat[3].innerHTML = elem.Hidratado.overCBIOs ?? "--";
+                overCBIOsComponent.anidro[5].innerHTML = elem.Anidro.overCBIOs ?? "--";
+
+                elegComponent.innerHTML = elem.Elegibilidade?.toString().concat("%") ?? "--";
             };
         });
+        const burger = document.querySelector('.burger');
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('tabbar-transition');
+        burger.classList.toggle('toggle');
     };
 };
 
-const getStatisticData = () => {
+const getStatisticDataEtanol = () => {
     const updateData = (name) => {
         let key;
         let round;
+        let position;
         switch (name) {
             case "NEEA":
                 key = name;
                 round = 2;
+                position = 0;
                 break;
             case "prod":
                 key = "Producao";
                 round = 1;
+                position = 1;
+                break;
+            case "CBIOs":
+                key = name;
+                rount = 0;
+                position = 2;
                 break;
             case "eleg":
                 key = "Elegibilidade"
                 round = 1;
+                position = 3;
                 getStatisticOfElegility(key, round);
                 return;
-            case "CBIOs":
-                key = name;
-                rount = 0;
-                break;
         }
 
         let average = { hidrat: 0, anidro: 0 };
@@ -111,12 +127,16 @@ const getStatisticData = () => {
             anidro: Math.min(...aux.anidro).toFixed(round),
         };
 
-        document.getElementById(`average-${name}-hidratado`).innerHTML = average.hidrat;
-        document.getElementById(`average-${name}-anidro`).innerHTML = average.anidro;
-        document.getElementById(`max-${name}-hidratado`).innerHTML = max.hidrat;
-        document.getElementById(`max-${name}-anidro`).innerHTML = max.anidro;
-        document.getElementById(`min-${name}-hidratado`).innerHTML = min.hidrat;
-        document.getElementById(`min-${name}-anidro`).innerHTML = min.anidro;
+        const divHidrat = document.querySelectorAll("div#hidratado.statistic-data")
+        const divAnidro = document.querySelectorAll("div#anidro.statistic-data");
+
+        divHidrat[position].childNodes[7].innerHTML = average.hidrat;
+        divHidrat[position].childNodes[11].innerHTML = max.hidrat;
+        divHidrat[position].childNodes[15].innerHTML = min.hidrat;
+
+        divAnidro[position].childNodes[7].innerHTML = average.anidro;
+        divAnidro[position].childNodes[11].innerHTML = max.anidro;
+        divAnidro[position].childNodes[15].innerHTML = min.anidro;
     };
 
     const getStatisticOfElegility = (key, round) => {
@@ -146,7 +166,7 @@ const getStatisticData = () => {
 
 
 
-const updateRank = () => {
+const updateRankEtanol = () => {
     const topCompaniesNames = document.querySelectorAll("p.top-item#name");
     const topCompaniesValues = document.querySelectorAll("p.top-item#value");
 
@@ -156,7 +176,7 @@ const updateRank = () => {
     });
 
     topCompaniesValues.forEach((elem, i) => {
-        elem.innerHTML = rankedList.rank[i]?.toFixed(2);
+        elem.innerHTML = rankedListBiodiesel.rank[i]?.toFixed(2);
     });
 
     const bottomCompaniesNames = document.querySelectorAll("p.bottom-item#name");
@@ -167,8 +187,6 @@ const updateRank = () => {
     });
 
     bottomCompaniesValues.forEach((elem, i) => {
-        elem.innerHTML = rankedList.rank[rankedList.rank.length + (i - 5)]?.toFixed(2);
+        elem.innerHTML = rankedListBiodiesel.rank[rankedListBiodiesel.rank.length + (i - 5)]?.toFixed(2);
     });
 };
-
-App();

@@ -4,31 +4,22 @@ const App = () => {
     const etanolButton = document.querySelector("#etanol.primary-button");
     const biodieselButton = document.querySelector("#biodiesel.primary-button");
 
-    window.onload = () => {
-        etanolButton.onclick = () => { renderEtanolInfos() }
-        biodieselButton.onclick = () => { renderBiodieselInfos() }
-    };
+
+    etanolButton.onclick = () => { renderEtanolInfos() }
+    biodieselButton.onclick = () => { renderBiodieselInfos() }
 
     const product = document.querySelector(".nav h2");
 
     function renderEtanolInfos() {
-        try {
-            cleanDisplayEtanol();
-            product.innerHTML = "Etanol";
-            Etanol();
-        } catch (error) {
-            alert(error)
-        }
+        cleanDisplayEtanol();
+        product.innerHTML = "Etanol";
+        Etanol();
     };
 
     function renderBiodieselInfos() {
-        try {
-            cleanDisplayBiodiesel();
-            product.innerHTML = "Biodiesel";
-            Biodiesel();
-        } catch (error) {
-            alert(error)
-        }
+        cleanDisplayBiodiesel();
+        product.innerHTML = "Biodiesel";
+        Biodiesel();
     }
 
     openSidebar();

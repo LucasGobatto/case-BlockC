@@ -103,6 +103,7 @@
     width: 40%;
     background-color: var(--water-green);
     text-align: center;
+    overflow: hidden;
 }
 
 .primary-button h2 {
@@ -157,4 +158,5 @@
     height: 48px;
     width: 100%;
     text-align: center;
+    overflow: hidden;
 }

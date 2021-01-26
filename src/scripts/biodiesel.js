@@ -88,7 +88,7 @@ const getStatisticDataBiodiesel = async () => {
             max = data.max;
             average = Number(data.average)?.toFixed(round);
         } catch (error) {
-            console.log(error);
+            console.warn(error);
         };
 
         document.getElementById(`average-${name}`).innerHTML = average;
@@ -116,7 +116,7 @@ const updateRankBiodiesel = async () => {
         top = data.topNEEA;
         bottom = data.bottomNEEA;
     } catch (error) {
-        console.log(error);
+        console.warn(error);
     }
 
     topCompaniesNames.forEach((elem, i) => {

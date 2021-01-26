@@ -1,5 +1,3 @@
-const rankedListEtanol = getRank("etanol");
-
 const Etanol = async () => {
     await getStatisticDataEtanol();
     await updateRankEtanol();
@@ -7,7 +5,6 @@ const Etanol = async () => {
 };
 
 const updateSelectorEtanol = async () => {
-    //const listOfNames = staticData.etanol.map((elem) => elem.Usina);
     let listOfNames;
     try {
         const response = await fetch(BASE_URL + 'company-names/etanol');
@@ -56,7 +53,6 @@ const updateSelectorEtanol = async () => {
         try {
             const response = await fetch(BASE_URL + 'statistic-data/get-one/etanol&' + name);
             const data = await response.json();
-            console.log(data);
             statisticData = data ?? {
                 Elegibilidade: null,
                 Hidratado: {
@@ -75,8 +71,6 @@ const updateSelectorEtanol = async () => {
         } catch (error) {
             console.warn(error);
         };
-
-        console.log(statisticData);
 
         NEEAComponent.hidrat[3].innerHTML = statisticData.Hidratado.NEEA?.toFixed(2) ?? "--";
         NEEAComponent.anidro[3].innerHTML = statisticData.Anidro.NEEA?.toFixed(2) ?? "--";
@@ -129,14 +123,14 @@ const getStatisticDataEtanol = () => {
             const resHidrat = await fetch(BASE_URL + 'statistic-data/get-details/etanol/Hidratado&' + key);
             dataHidrat = await resHidrat.json();
         } catch (error) {
-            console.log(error);
+            console.warn(error);
         };
 
         try {
             const resAndrido = await fetch(BASE_URL + 'statistic-data/get-details/etanol/Anidro&' + key);
             dataAnidro = await resAndrido.json();
         } catch (error) {
-            console.log(error);
+            console.warn(error);
         };
 
         const average = { hidrat: dataHidrat.average.toFixed(round), anidro: dataAnidro.average.toFixed(round) };
@@ -161,7 +155,7 @@ const getStatisticDataEtanol = () => {
             const response = await fetch(BASE_URL + 'statistic-data/get-details/etanol/elegibilidade');
             data = await response.json();
         } catch (error) {
-            console.log(error);
+            console.warn(error);
         }
 
         document.getElementById("average-eleg").innerHTML = data.average.toFixed(round).concat("%");
@@ -188,7 +182,7 @@ const updateRankEtanol = async () => {
         topNEEA = data.topNEEA;
         bottomNEEA = data.bottomNEEA;
     } catch (error) {
-        console.log(error);
+        console.warn(error);
     }
 
     topCompaniesNames.forEach((elem, i) => {

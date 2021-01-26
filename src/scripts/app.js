@@ -1,6 +1,4 @@
 const App = () => {
-
-
     const etanolButton = document.querySelector("#etanol.primary-button");
     const biodieselButton = document.querySelector("#biodiesel.primary-button");
 

@@ -1,13 +1,21 @@
 const rankedListEtanol = getRank("etanol");
 
-const Etanol = () => {
-    getStatisticDataEtanol();
-    updateRankEtanol();
-    updateSelectorEtanol();
+const Etanol = async () => {
+    await getStatisticDataEtanol();
+    await updateRankEtanol();
+    await updateSelectorEtanol();
 };
 
-const updateSelectorEtanol = () => {
-    const listOfNames = staticData.etanol.map((elem) => elem.Usina);
+const updateSelectorEtanol = async () => {
+    //const listOfNames = staticData.etanol.map((elem) => elem.Usina);
+    let listOfNames;
+    try {
+        const response = await fetch(BASE_URL + 'company-names/etanol');
+        listOfNames = (await response.json()).map(elem => elem.Usina);
+    } catch (error) {
+        console.warn(error);
+        listOfNames = [];
+    }
 
     const selector = document.querySelector(".selector");
     listOfNames.forEach((elem) => {
@@ -20,7 +28,7 @@ const updateSelectorEtanol = () => {
         selector.appendChild(divider)
     });
 
-    const updateCurrentCompanyData = (name) => {
+    const updateCurrentCompanyData = async (name) => {
         const divHidrat = document.querySelectorAll("div#hidratado.statistic-data")
         const divAnidro = document.querySelectorAll("div#anidro.statistic-data");
         document.querySelector(".company-name").innerHTML = name;
@@ -44,20 +52,43 @@ const updateSelectorEtanol = () => {
 
         const elegComponent = document.querySelector(".eligibility");
 
-        staticData.etanol.forEach((elem) => {
-            if (elem.Usina === name) {
-                NEEAComponent.hidrat[3].innerHTML = elem.Hidratado.NEEA?.toFixed(2) ?? "--";
-                NEEAComponent.anidro[3].innerHTML = elem.Anidro.NEEA?.toFixed(2) ?? "--";
-                prodComponent.hidrat[3].innerHTML = elem.Hidratado.Producao?.toFixed(1) ?? "--";
-                prodComponent.anidro[3].innerHTML = elem.Anidro.Producao?.toFixed(1) ?? "--";
-                CBIOsComponent.hidrat[3].innerHTML = elem.Hidratado.CBIOs ?? "--";
-                CBIOsComponent.anidro[3].innerHTML = elem.Anidro.CBIOs ?? "--";
-                overCBIOsComponent.hidrat[3].innerHTML = elem.Hidratado.overCBIOs ?? "--";
-                overCBIOsComponent.anidro[5].innerHTML = elem.Anidro.overCBIOs ?? "--";
-
-                elegComponent.innerHTML = elem.Elegibilidade?.toString().concat("%") ?? "--";
+        let statisticData;
+        try {
+            const response = await fetch(BASE_URL + 'statistic-data/get-one/etanol&' + name);
+            const data = await response.json();
+            console.log(data);
+            statisticData = data ?? {
+                Elegibilidade: null,
+                Hidratado: {
+                    NEEA: null,
+                    Producao: null,
+                    CBIOs: null,
+                    overCBIOs: null
+                },
+                Anidro: {
+                    NEEA: null,
+                    Producao: null,
+                    CBIOs: null,
+                    overCBIOs: null
+                },
             };
-        });
+        } catch (error) {
+            console.warn(error);
+        };
+
+        console.log(statisticData);
+
+        NEEAComponent.hidrat[3].innerHTML = statisticData.Hidratado.NEEA?.toFixed(2) ?? "--";
+        NEEAComponent.anidro[3].innerHTML = statisticData.Anidro.NEEA?.toFixed(2) ?? "--";
+        prodComponent.hidrat[3].innerHTML = statisticData.Hidratado.Producao?.toFixed(1) ?? "--";
+        prodComponent.anidro[3].innerHTML = statisticData.Anidro.Producao?.toFixed(1) ?? "--";
+        CBIOsComponent.hidrat[3].innerHTML = statisticData.Hidratado.CBIOs ?? "--";
+        CBIOsComponent.anidro[3].innerHTML = statisticData.Anidro.CBIOs ?? "--";
+        overCBIOsComponent.hidrat[3].innerHTML = statisticData.Hidratado.overCBIOs ?? "--";
+        overCBIOsComponent.anidro[5].innerHTML = statisticData.Anidro.overCBIOs ?? "--";
+
+        elegComponent.innerHTML = statisticData.Elegibilidade?.toString().concat("%") ?? "--";
+
         const burger = document.querySelector('.burger');
         const sidebar = document.querySelector('.sidebar');
         sidebar.classList.toggle('tabbar-transition');
@@ -66,7 +97,7 @@ const updateSelectorEtanol = () => {
 };
 
 const getStatisticDataEtanol = () => {
-    const updateData = (name) => {
+    const updateData = async (name) => {
         let key;
         let round;
         let position;
@@ -87,45 +118,30 @@ const getStatisticDataEtanol = () => {
                 position = 2;
                 break;
             case "eleg":
-                key = "Elegibilidade"
                 round = 1;
                 position = 3;
-                getStatisticOfElegility(key, round);
+                getStatisticOfElegility(round);
                 return;
         }
 
-        let average = { hidrat: 0, anidro: 0 };
-        let count = { hidrat: 0, anidro: 0 };
-        const aux = { hidrat: [], anidro: [] };
-
-        staticData.etanol.forEach((elem) => {
-            const hidrat = elem.Hidratado[key]; // or elem.Hidratado[key] ?? null;
-            const anidro = elem.Anidro[key];
-            if (hidrat) {
-                average.hidrat = average.hidrat + hidrat;
-                count.hidrat = count.hidrat + 1;
-                aux.hidrat.push(hidrat);
-            };
-            if (anidro) {
-                average.anidro = average.anidro + anidro;
-                count.anidro = count.anidro + 1;
-                aux.anidro.push(anidro);
-            };
-        });
-
-        average = {
-            hidrat: (average.hidrat / count.hidrat).toFixed(round),
-            anidro: (average.anidro / count.anidro).toFixed(round),
+        let dataAnidro, dataHidrat;
+        try {
+            const resHidrat = await fetch(BASE_URL + 'statistic-data/get-details/etanol/Hidratado&' + key);
+            dataHidrat = await resHidrat.json();
+        } catch (error) {
+            console.log(error);
         };
 
-        const max = {
-            hidrat: Math.max(...aux.hidrat).toFixed(round),
-            anidro: Math.max(...aux.anidro).toFixed(round),
+        try {
+            const resAndrido = await fetch(BASE_URL + 'statistic-data/get-details/etanol/Anidro&' + key);
+            dataAnidro = await resAndrido.json();
+        } catch (error) {
+            console.log(error);
         };
-        const min = {
-            hidrat: Math.min(...aux.hidrat).toFixed(round),
-            anidro: Math.min(...aux.anidro).toFixed(round),
-        };
+
+        const average = { hidrat: dataHidrat.average.toFixed(round), anidro: dataAnidro.average.toFixed(round) };
+        const max = { hidrat: dataHidrat.max.toFixed(round), anidro: dataAnidro.max.toFixed(round) };
+        const min = { hidrat: dataHidrat.min.toFixed(round), anidro: dataAnidro.min.toFixed(round) };
 
         const divHidrat = document.querySelectorAll("div#hidratado.statistic-data")
         const divAnidro = document.querySelectorAll("div#anidro.statistic-data");
@@ -139,23 +155,18 @@ const getStatisticDataEtanol = () => {
         divAnidro[position].childNodes[15].innerHTML = min.anidro;
     };
 
-    const getStatisticOfElegility = (key, round) => {
-        let average = 0;
-        let count = 0;
-        const aux = [];
-        staticData.etanol.forEach((elem) => {
-            if (elem[key]) {
-                average += elem[key];
-                count += 1;
-                aux.push(elem[key])
-            };
-        });
+    const getStatisticOfElegility = async (round) => {
+        let data;
+        try {
+            const response = await fetch(BASE_URL + 'statistic-data/get-details/etanol/elegibilidade');
+            data = await response.json();
+        } catch (error) {
+            console.log(error);
+        }
 
-        average = (average / count).toFixed(round);
-
-        document.getElementById("average-eleg").innerHTML = average.toString().concat("%");
-        document.getElementById("max-eleg").innerHTML = Math.max(...aux).toFixed(round).toString().concat("%");
-        document.getElementById("min-eleg").innerHTML = Math.min(...aux).toFixed(round).toString().concat("%");
+        document.getElementById("average-eleg").innerHTML = data.average.toFixed(round).concat("%");
+        document.getElementById("max-eleg").innerHTML = data.max.toFixed(round).toString().concat("%");
+        document.getElementById("min-eleg").innerHTML = data.min.toFixed(round).toString().concat("%");
     };
 
     updateData("NEEA");
@@ -166,27 +177,36 @@ const getStatisticDataEtanol = () => {
 
 
 
-const updateRankEtanol = () => {
+const updateRankEtanol = async () => {
     const topCompaniesNames = document.querySelectorAll("p.top-item#name");
     const topCompaniesValues = document.querySelectorAll("p.top-item#value");
 
+    let topNEEA, bottomNEEA;
+    try {
+        const response = await fetch(BASE_URL + 'get-ranking/etanol');
+        const data = await response.json();
+        topNEEA = data.topNEEA;
+        bottomNEEA = data.bottomNEEA;
+    } catch (error) {
+        console.log(error);
+    }
 
     topCompaniesNames.forEach((elem, i) => {
-        elem.innerHTML = rakedCompanies.etanol[i];
+        elem.innerHTML = topNEEA[i].Usina;
     });
 
     topCompaniesValues.forEach((elem, i) => {
-        elem.innerHTML = rankedListBiodiesel.rank[i]?.toFixed(2);
+        elem.innerHTML = topNEEA[i].Hidratado.NEEA.toFixed(2);
     });
 
     const bottomCompaniesNames = document.querySelectorAll("p.bottom-item#name");
     const bottomCompaniesValues = document.querySelectorAll("p.bottom-item#value");
 
     bottomCompaniesNames.forEach((elem, i) => {
-        elem.innerHTML = rakedCompanies.etanol[rakedCompanies.etanol.length + (i - 5)];
+        elem.innerHTML = bottomNEEA[4 - i].Usina;
     });
 
     bottomCompaniesValues.forEach((elem, i) => {
-        elem.innerHTML = rankedListBiodiesel.rank[rankedListBiodiesel.rank.length + (i - 5)]?.toFixed(2);
+        elem.innerHTML = bottomNEEA[4 - i].Hidratado.NEEA.toFixed(2);
     });
 };

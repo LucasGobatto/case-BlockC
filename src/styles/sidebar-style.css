@@ -131,12 +131,23 @@
     border: none;
     text-align: center;
 }
+
+.search-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: var(--black) solid 1px;
+    cursor: pointer;
+    height: 100%;
+    width: 40px;
+    padding: 10px
+}
+
 .text-input img {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
     align-self: center;
-    margin: 0 10px;
 }
 
 .selector {
